@@ -16,7 +16,6 @@ class Scene0 extends Phaser.Scene{
 
 	update(){
 		if (this.cursors.up.isDown) {
-			
 			this.scene.start('Scene_1',{nombreVie: this.nombreVie, score: this.score});
 		}
 	}
