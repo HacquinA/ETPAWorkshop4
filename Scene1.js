@@ -13,7 +13,7 @@ class Scene1 extends Phaser.Scene{
 	preload(){
 		this.load.image('espace','assets/espace.png');
 		this.load.spritesheet('sp1','assets/SpaceInvader1.png',{frameWidth: 20, frameHeight: 8});
-		this.load.image('vaisseau','assets/vaisseau.png');
+		this.load.spritesheet('vaisseau','assets/vaisseau.png',{frameWidth: 27.3, frameHeight: 20});
 		this.load.image('platform','assets/platform.png');
 	}
 
@@ -39,42 +39,68 @@ class Scene1 extends Phaser.Scene{
 		this.player.body.setGravityY(200);
 		this.physics.add.collider(this.player,this.platforms);
 
+	//Récupération des curseurs
+		/*this.keys = this.input.keyboard.addKeys('A,S,P');
+		this.cursors = this.input.keyboard.createCursorKeys();
+		this.fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);*/
 
-        
-	}
+	// deplacement perso
+
+		this.anims.create({
+		    key: 'left',
+		    frames: this.anims.generateFrameNumbers('vaisseau', { start: 0, end: 2 }),
+		    frameRate: 10,
+		    repeat: -1
+		});
+
+		this.anims.create({
+		    key: 'turn',
+		    frames: [ { key: 'vaisseau', frame: 1 } ],
+		    frameRate: 20
+		});
+
+		this.anims.create({
+		    key: 'right',
+		    frames: this.anims.generateFrameNumbers('vaisseau', { start: 0, end: 2 }),
+		    frameRate: 10,
+		    repeat: -1
+		});
+}
 
 	update(){
+
+	//chgt de scene 
+	/*
 		if(this.cursors.up.isDown)
 		{
 			this.scene.start('Scene_2',{nombreVie: this.nombreVie});
 		}
-
+	*/
 	// Deplacement vaisseau 
 
+		if (this.cursors.left.isDown)
+		{
+		    this.player.setVelocityX(-160);
 
-	if (this.cursors.left.isDown){
-		player.direction = 'left';
-		player.anims.play('right', true);
-		player.setVelocityX(-150);
-		player.setFlipX(true);
-		if(keys.A.isDown){
-			player.anims.play('right', true);
-			player.setFlipX(true);
-			player.setVelocityX(-200);
+		    //this.player.anims.play('left', true);
 		}
-	}
-	else if (this.cursors.right.isDown){
-		player.direction = 'right';
-		player.anims.play('left', true);
-		player.setFlipX(false);
-		player.setVelocityX(150);
-		if(keys.A.isDown){
-			player.anims.play('left', true);
-			player.setFlipX(false);
-			player.setVelocityX(200);
+		else if (this.cursors.right.isDown)
+		{
+		    this.player.setVelocityX(160);
+
+		    //this.player.anims.play('right', true);
+		}
+		else
+		{
+		    this.player.setVelocityX(0);
+
+		    //this.player.anims.play('turn');
 		}
 
-	}
+		if (this.cursors.up.isDown && player.body.touching.down)
+		{
+		    this.player.setVelocityY(-330);
+		}
 
 
 
