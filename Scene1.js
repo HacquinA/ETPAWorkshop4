@@ -43,7 +43,6 @@ class Scene1 extends Phaser.Scene{
 		this.player.direction = 'right';
 		this.player.setBounce(0.02);
 		this.player.setCollideWorldBounds(true);
-		this.player.body.setGravityY(200);
 		this.physics.add.collider(this.player,this.platforms);
 
 	/*//Récupération des curseurs
@@ -99,14 +98,11 @@ class Scene1 extends Phaser.Scene{
 
 
 		this.sp3s = this.physics.add.group();
-		this.physics.add.overlap(this.player,this.playerj);
+		this.physics.add.overlap(this.player,this);
 		this.physics.add.collider(this.player, this.sp3, null, this);
-		this.physics.add.collider(this.sp3,this.sol);
-		this.sp3.body.setGravityY(-300);
-
+		this.physics.add.collider(this.sp3l);
+		this.sp3.body.setGravityY(-200);
 		
-		
-
 		
 		this.anims.create({
 			key: 'sp3',
@@ -120,9 +116,29 @@ class Scene1 extends Phaser.Scene{
 			frames: this.anims.generateFrameNumbers('sp3', {start: 0, end: 2}),
 			frameRate: 5,
 			repeat: -1
+		});                                  
+
+		// --------------
+	/*	this.sp3Gs = this.physics.add.group({ key: 'sp3', frame: 0, repeat: 13, allowGravity: false ,setXY: { x: 32, y: 100, stepX: 40 } });
+		this.physics.add.overlap(this.player);
+		this.physics.add.collider(this.player, this.sp3G, null, this);
+		this.physics.add.collider(this.sp3G,this.sol);
+		
+		this.anims.create({
+			key: 'sp3G',
+			frames: this.anims.generateFrameNumbers('sp3', {start: 0, end: 2}),
+			frameRate: 5,
+			repeat: -1
 		});
 
+		this.anims.create({
+			key: 'mvt_sp3G',
+			frames: this.anims.generateFrameNumbers('sp3', {start: 0, end: 2}),
+			frameRate: 5,
+			repeat: -1
+		});
 
+*/
 
 
 
@@ -132,7 +148,7 @@ class Scene1 extends Phaser.Scene{
 
 }
 
-	update(){
+update(){
 
 	//chgt de scene 
 	/*
@@ -230,7 +246,35 @@ class Scene1 extends Phaser.Scene{
 		this.sp3.anims.play('mvt_sp3', true);
 		this.sp3.setFlipY(false);
 
+	}    
+
+	//------------
+/*
+    	this.tweens.addCounter({
+			from: 100,
+			to: 520,
+			onUpdate: function (tween) {
+			this.sp3G.setVelocityX(tween.getValue());
+
+			}
+
+		});
+		
 	}
+	
+	/*if (this.sp3G.x <= 100){
+		this.tweens.add({
+	    	targets: this.sp3G,
+			x : 520,
+	    	ease: 'Linear',       // 'Cubic', 'Elastic', 'Bounce', 'Back'
+	    	duration: 5000,
+	    	repeat: 0,            // -1: infinity
+	    	yoyo: false
+		});
+		this.sp3G.anims.play('mvt_sp3G', true);
+		this.sp3G.setFlipY(false);
+*/
 	}
 
 }
+
