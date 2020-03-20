@@ -10,6 +10,7 @@ class Scene1 extends Phaser.Scene{
     	var cursors;
     	var player;
    		var bullet;
+
     	
 	}
 
@@ -39,7 +40,7 @@ class Scene1 extends Phaser.Scene{
 
 	// Perso 
 
-		this.player = this.physics.add.sprite(500,450,'vaisseau');
+		this.player = this.physics.add.sprite(500,700,'vaisseau');
 		this.player.direction = 'right';
 		this.player.setBounce(0.02);
 		this.player.setCollideWorldBounds(true);
@@ -73,7 +74,7 @@ class Scene1 extends Phaser.Scene{
 		});
 
 	// Tir perso 
-		this.bullet = this.physics.add.staticGroup();
+	/*	this.bullet = this.physics.add.staticGroup();
 		
 
 		this.keyObj = this.input.keyboard.addKey('W');  // Get key object
@@ -82,26 +83,26 @@ class Scene1 extends Phaser.Scene{
 				this.bullet.create(512,760,'bullet');
 				this.bullet = this.physics.add.sprite(500,450,'bullet');
 				this.bullet.setVelocityX(200);
-				this.physics.add.collider(this.player,this.platforms, this.sp1);
+				this.physics.add.collider(this.player,this.platforms, this.sp3);
 			});
 			
 			this.keyObj.on('up', function(event) { 
 				this.bullet = this.physics.add.sprite(500,450,'bullet');
 				this.bullet.setVelocityX(200);
-				this.physics.add.collider(this.player,this.platforms, this.sp1);
-			});
+				this.physics.add.collider(this.player,this.platforms, this.sp3);
+			});  */
 
 	//sp3
 
-		this.sp3 = this.physics.add.sprite(300,100,'sp3');
+/*		this.sp3 = this.physics.add.sprite(300,100,'sp3');
 		this.sp3.setCollideWorldBounds(true);
 
 
 		this.sp3s = this.physics.add.group();
-		this.physics.add.overlap(this.player,this);
-		this.physics.add.collider(this.player, this.sp3, null, this);
-		this.physics.add.collider(this.sp3l);
-		this.sp3.body.setGravityY(-200);
+		this.physics.add.overlap(this.player);
+		this.physics.add.collider(this.player, this.sp3, null,this);
+		this.physics.add.collider(this.sp3);
+		this.sp3.body.setGravityY(-300);
 		
 		
 		this.anims.create({
@@ -116,13 +117,17 @@ class Scene1 extends Phaser.Scene{
 			frames: this.anims.generateFrameNumbers('sp3', {start: 0, end: 2}),
 			frameRate: 5,
 			repeat: -1
-		});                                  
+		});  */                               
 
 		// --------------
-	/*	this.sp3Gs = this.physics.add.group({ key: 'sp3', frame: 0, repeat: 13, allowGravity: false ,setXY: { x: 32, y: 100, stepX: 40 } });
-		this.physics.add.overlap(this.player);
-		this.physics.add.collider(this.player, this.sp3G, null, this);
-		this.physics.add.collider(this.sp3G,this.sol);
+		this.sp3Gs = this.physics.add.group({ key: 'sp3', frame: 0, repeat: 13, setXY: { x: 32, y: 100, stepX: 40 } });
+		this.sp3G = this.physics.add.sprite(300,100,'sp3');
+
+		this.physics.add.overlap(this.sp3G);
+		this.physics.add.collider(this.player, this.sp3G, null,this);
+		this.physics.add.collider(this.sp3G);
+		
+		
 		
 		this.anims.create({
 			key: 'sp3G',
@@ -136,10 +141,10 @@ class Scene1 extends Phaser.Scene{
 			frames: this.anims.generateFrameNumbers('sp3', {start: 0, end: 2}),
 			frameRate: 5,
 			repeat: -1
-		});
+		}); 
 
-*/
 
+		this.text = this.add.text(250,600,'Appuie sur la flèche du haut pour continuer.');
 
 
 
@@ -151,12 +156,12 @@ class Scene1 extends Phaser.Scene{
 update(){
 
 	//chgt de scene 
-	/*
+	
 		if(this.cursors.up.isDown)
 		{
 			this.scene.start('Scene_2',{nombreVie: this.nombreVie});
 		}
-	*/
+	
 	// Deplacement vaisseau 
 
 		if (this.cursors.left.isDown)
@@ -187,41 +192,10 @@ update(){
 			this.player.setVelocityY(-330);
 		}
 
- 		
-	// Deplacement sp3
-	/*
-		if (this.cursors.left.isDown)
-		{
-		   this.player.setVelocityX(-200);
-
-		   this.player.anims.play('left', true);
-
-		   this.player.direction = 'left';
-		}
-		else if (this.cursors.right.isDown)
-		{
-		    this.player.setVelocityX(200);
-
-		    this.player.anims.play('right', true);
-
-		    this.player.direction = 'right';
-		}
-		else
-		{
-		    this.player.setVelocityX(0);
-
-		    this.player.anims.play('turn');
-		}
-
-		if (this.cursors.up.isDown && this.player.body.touching.down){    
-
-			this.player.setVelocityY(-330);
-		}
-*/
+ 	
 	//mvt sp3 
 
-
-	if (this.sp3.x >= 300){
+/*if (this.sp3.x >= 300){
     	this.tweens.add({
 	    	targets: this.sp3,
 	   	 	x : -100,
@@ -246,23 +220,24 @@ update(){
 		this.sp3.anims.play('mvt_sp3', true);
 		this.sp3.setFlipY(false);
 
-	}    
+	}    */
 
 	//------------
-/*
-    	this.tweens.addCounter({
-			from: 100,
-			to: 520,
-			onUpdate: function (tween) {
-			this.sp3G.setVelocityX(tween.getValue());
 
-			}
-
+	if (this.sp3G.x >= 300){
+    	this.tweens.add({
+	    	targets: this.sp3G,
+	   	 	x : -100,
+	    	ease: 'Linear',       // 'Cubic', 'Elastic', 'Bounce', 'Back'
+	    	duration: 5000,
+	    	repeat: 0,            // -1: infinity
+	    	yoyo: false
 		});
-		
+		this.sp3G.anims.play('mvt_sp3G', true);
+		this.sp3G.setFlipY(false);
 	}
 	
-	/*if (this.sp3G.x <= 100){
+	if (this.sp3G.x <= 100){
 		this.tweens.add({
 	    	targets: this.sp3G,
 			x : 520,
@@ -273,8 +248,21 @@ update(){
 		});
 		this.sp3G.anims.play('mvt_sp3G', true);
 		this.sp3G.setFlipY(false);
-*/
-	}
+
+	}    
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
+}
